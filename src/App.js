@@ -1,24 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import { Box, Grommet, TextInput } from "grommet";
+import { Clock } from "grommet-icons";
+import { useCallback } from "react";
+import { useQueryParam, StringParam } from "use-query-params";
+import { TimeDisplay } from "./TimeDisplay";
+
+const AppBar = (props) => (
+  <Box
+    tag="header"
+    direction="row"
+    align="center"
+    justify="between"
+    background="brand"
+    pad={{ left: "medium", right: "small", vertical: "small" }}
+    elevation="medium"
+    style={{ zIndex: "1" }}
+    {...props}
+  />
+);
+
+const theme = {
+  global: {
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px",
+    },
+    colors: {
+      focus: "#0CA7D3",
+    },
+  },
+};
 
 function App() {
+  const [stamp, setStamp] = useQueryParam("t", StringParam);
+
+  const onChange = useCallback(
+    (e) => {
+      setStamp(e.target.value, "replace");
+    },
+    [setStamp]
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grommet theme={theme}>
+      <AppBar>Pretty Timestamp</AppBar>
+      <Box pad="small" direction="row" flex overflow={{ horizontal: "hidden" }}>
+        <Box flex align="center" justify="center">
+          <Box width={{ max: "medium" }}>
+            <TextInput
+              icon={<Clock />}
+              defaultValue={stamp}
+              onChange={onChange}
+              placeholder="timestamp..."
+            />
+          </Box>
+          <TimeDisplay time={stamp} />
+        </Box>
+      </Box>
+    </Grommet>
   );
 }
 
