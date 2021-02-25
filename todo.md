@@ -5,3 +5,4 @@
 - dark mode?!?!
 - favicon / tile / meta
 - case insensitive in suggestions
+- why is offset showing PST not +8?
