@@ -21,7 +21,7 @@ export const TimeDisplay = ({ guessedTime, tzs }: TimeDisplayProps) => {
             property: "offset",
             header: "Offset",
             render: (d) =>
-              guessedTime == null ? "???" : guessedTime.time.tz(d).format("z"),
+              guessedTime == null ? "???" : guessedTime.time.tz(d).format("Z"),
           },
           {
             property: "time",
