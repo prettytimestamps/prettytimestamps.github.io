@@ -1,5 +1,5 @@
 import moment from "moment-timezone";
-import { DataTable, Text, TextInput } from "grommet";
+import { DataTable, Text } from "grommet";
 import { SelectTimeZone } from "./SelectTimeZone";
 import { ArrayParam, useQueryParam, withDefault } from "use-query-params";
 

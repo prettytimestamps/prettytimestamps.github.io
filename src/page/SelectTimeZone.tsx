@@ -1,7 +1,6 @@
 import Select from "react-select";
 
 import moment from "moment-timezone";
-import { useState } from "react";
 
 const allNames = moment.tz.names();
 const allAbbr = Array.from(
