@@ -36,7 +36,7 @@ function App() {
 
   const onChange = useCallback(
     (e) => {
-      setStamp(e.target.value, "replace");
+      setStamp(e.target.value);
     },
     [setStamp]
   );
