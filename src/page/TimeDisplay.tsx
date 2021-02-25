@@ -1,6 +1,11 @@
 import moment from "moment-timezone";
 import { DataTable, Text } from "grommet";
-export const TimeDisplay = ({ time }) => {
+
+interface TimeDisplayProps {
+  time: string | null
+}
+
+export const TimeDisplay = ({ time }: TimeDisplayProps) => {
   let displayList = ["UTC", moment.tz.guess()];
 
   return (

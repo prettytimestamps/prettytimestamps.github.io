@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useQueryParam, StringParam } from "use-query-params";
 import { TimeDisplay } from "./TimeDisplay";
 
-const AppBar = (props) => (
+const AppBar = (props: any) => (
   <Box
     tag="header"
     direction="row"
@@ -49,12 +49,12 @@ function App() {
           <Box width={{ max: "medium" }}>
             <TextInput
               icon={<Clock />}
-              defaultValue={stamp}
+              defaultValue={stamp ?? undefined}
               onChange={onChange}
               placeholder="timestamp..."
             />
           </Box>
-          <TimeDisplay time={stamp} />
+          <TimeDisplay time={stamp ?? null} />
         </Box>
       </Box>
     </Grommet>
