@@ -1,5 +1,5 @@
-import { Box, Grommet, TextInput, Text } from "grommet";
-import { Clock } from "grommet-icons";
+import { Box, Grommet, TextInput, Text, Button } from "grommet";
+import { Clock, Github } from "grommet-icons";
 import moment from "moment";
 import { useMemo } from "react";
 import { useCallback } from "react";
@@ -61,7 +61,18 @@ function App() {
 
   return (
     <Grommet theme={theme}>
-      <AppBar>Pretty Timestamp</AppBar>
+      <AppBar>
+        <Box>Pretty Timestamp</Box>
+        <Box>
+          <Button
+            secondary
+            icon={<Github />}
+            target="blank"
+            href="https://github.com/prettytimestamps/prettytimestamps.github.io/"
+            label="GitHub"
+          />
+        </Box>
+      </AppBar>
       <Box pad="small" direction="row" flex overflow={{ horizontal: "hidden" }}>
         <Box flex align="center" justify="center">
           <Box flex direction="row">
