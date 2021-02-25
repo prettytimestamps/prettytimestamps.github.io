@@ -1,6 +1,7 @@
-import { Box, Grommet, TextInput } from "grommet";
+import { Box, Grommet, TextInput, Text } from "grommet";
 import { Clock } from "grommet-icons";
 import moment from "moment";
+import { useMemo } from "react";
 import { useCallback } from "react";
 import {
   useQueryParam,
@@ -8,6 +9,7 @@ import {
   withDefault,
   ArrayParam,
 } from "use-query-params";
+import { guessTimeStampForm } from "../services/guessTimestampForm";
 import { SelectTimeZone } from "./SelectTimeZone";
 import { TimeDisplay } from "./TimeDisplay";
 
@@ -45,6 +47,11 @@ function App() {
     withDefault(ArrayParam, ["UTC", moment.tz.guess()])
   );
 
+  const guessedTime = useMemo(
+    () => (stamp ? guessTimeStampForm(stamp) : null),
+    [stamp]
+  );
+
   const onChange = useCallback(
     (e) => {
       setStamp(e.target.value);
@@ -60,7 +67,7 @@ function App() {
           <Box flex direction="row">
             <Box width={{ max: "medium" }} pad="small">
               <TextInput
-                icon={<Clock />}
+                icon={guessedTime ? <Text>{guessedTime.type}</Text> : <Clock />}
                 defaultValue={stamp ?? undefined}
                 onChange={onChange}
                 placeholder="timestamp..."
@@ -73,7 +80,7 @@ function App() {
               ></SelectTimeZone>
             </Box>
           </Box>
-          <TimeDisplay time={stamp ?? null} tzs={tzs as string[]} />
+          <TimeDisplay guessedTime={guessedTime} tzs={tzs as string[]} />
         </Box>
       </Box>
     </Grommet>

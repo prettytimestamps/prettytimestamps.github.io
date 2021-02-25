@@ -1,12 +1,12 @@
-import moment from "moment-timezone";
 import { DataTable, Text } from "grommet";
+import { Guess } from "../services/guessTimestampForm";
 
 interface TimeDisplayProps {
-  time: string | null;
+  guessedTime: Guess | null;
   tzs: string[];
 }
 
-export const TimeDisplay = ({ time, tzs }: TimeDisplayProps) => {
+export const TimeDisplay = ({ guessedTime, tzs }: TimeDisplayProps) => {
   return (
     <>
       <DataTable
@@ -21,19 +21,15 @@ export const TimeDisplay = ({ time, tzs }: TimeDisplayProps) => {
             property: "offset",
             header: "Offset",
             render: (d) =>
-              time == null
-                ? "???"
-                : moment(parseInt(time, 10)).tz(d).format("z"),
+              guessedTime == null ? "???" : guessedTime.time.tz(d).format("z"),
           },
           {
             property: "time",
             header: "Time",
             render: (d) => (
               <span style={{ fontFamily: "'Roboto Mono', monospace" }}>
-                {time
-                  ? moment(parseInt(time, 10))
-                      .tz(d)
-                      .format("YYYY-MM-DD HH:mm:ss")
+                {guessedTime
+                  ? guessedTime.time.tz(d).format("YYYY-MM-DD HH:mm:ss")
                   : "0000-00-00 00:00:00"}
               </span>
             ),
