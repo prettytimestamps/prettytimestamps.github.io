@@ -1,22 +1,14 @@
 import moment from "moment-timezone";
 import { DataTable, Text } from "grommet";
-import { SelectTimeZone } from "./SelectTimeZone";
-import { ArrayParam, useQueryParam, withDefault } from "use-query-params";
 
 interface TimeDisplayProps {
   time: string | null;
+  tzs: string[];
 }
 
-export const TimeDisplay = ({ time }: TimeDisplayProps) => {
-  let displayList = ["UTC", moment.tz.guess()];
-  const [tzs, setTZs] = useQueryParam("z", withDefault(ArrayParam, []));
-
+export const TimeDisplay = ({ time, tzs }: TimeDisplayProps) => {
   return (
     <>
-      <SelectTimeZone
-        tzs={tzs as string[]}
-        addTZ={(tz) => setTZs([...tzs, tz])}
-      ></SelectTimeZone>
       <DataTable
         columns={[
           {
@@ -47,7 +39,7 @@ export const TimeDisplay = ({ time }: TimeDisplayProps) => {
             ),
           },
         ]}
-        data={displayList.concat(tzs as string[])}
+        data={tzs}
       />
     </>
   );

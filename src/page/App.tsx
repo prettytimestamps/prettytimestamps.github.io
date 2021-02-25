@@ -1,7 +1,14 @@
 import { Box, Grommet, TextInput } from "grommet";
 import { Clock } from "grommet-icons";
+import moment from "moment";
 import { useCallback } from "react";
-import { useQueryParam, StringParam } from "use-query-params";
+import {
+  useQueryParam,
+  StringParam,
+  withDefault,
+  ArrayParam,
+} from "use-query-params";
+import { SelectTimeZone } from "./SelectTimeZone";
 import { TimeDisplay } from "./TimeDisplay";
 
 const AppBar = (props: any) => (
@@ -33,6 +40,10 @@ const theme = {
 
 function App() {
   const [stamp, setStamp] = useQueryParam("t", StringParam);
+  const [tzs, setTZs] = useQueryParam(
+    "z",
+    withDefault(ArrayParam, ["UTC", moment.tz.guess()])
+  );
 
   const onChange = useCallback(
     (e) => {
@@ -46,15 +57,23 @@ function App() {
       <AppBar>Pretty Timestamp</AppBar>
       <Box pad="small" direction="row" flex overflow={{ horizontal: "hidden" }}>
         <Box flex align="center" justify="center">
-          <Box width={{ max: "medium" }}>
-            <TextInput
-              icon={<Clock />}
-              defaultValue={stamp ?? undefined}
-              onChange={onChange}
-              placeholder="timestamp..."
-            />
+          <Box flex direction="row">
+            <Box width={{ max: "medium" }} pad="small">
+              <TextInput
+                icon={<Clock />}
+                defaultValue={stamp ?? undefined}
+                onChange={onChange}
+                placeholder="timestamp..."
+              />
+            </Box>
+            <Box width={{ max: "medium" }} pad="small">
+              <SelectTimeZone
+                tzs={tzs as string[]}
+                addTZ={(tz) => setTZs([...tzs, tz])}
+              ></SelectTimeZone>
+            </Box>
           </Box>
-          <TimeDisplay time={stamp ?? null} />
+          <TimeDisplay time={stamp ?? null} tzs={tzs as string[]} />
         </Box>
       </Box>
     </Grommet>
