@@ -10,7 +10,7 @@ export const guessTimeStampForm = (timestamp: string) => {
   const options = [
     { type: "s", time: moment(parsedStamp * 1000) },
     { type: "ms", time: moment(parsedStamp) },
-    { type: "ns", time: moment(parsedStamp / 1000) },
+    { type: "ns", time: moment(parsedStamp / 1000000) },
   ];
 
   let bestOption = options[0];
