@@ -58,7 +58,7 @@ export const Inputs: React.FunctionComponent<InputsProps> = ({
         </Box>
       </Box>
 
-      <Box direction="row">
+      <Box style={{ marginBottom: "1em" }} direction="row">
         <CalculatorButton label="COPY" onClick={() => copy(stamp!)} />
         <CalculatorButton
           label="NOW"
