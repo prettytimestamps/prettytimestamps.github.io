@@ -39,7 +39,9 @@ export const Inputs: React.FunctionComponent<InputsProps> = ({
       <Box width={{ max: "medium" }} pad="small">
         <SelectTimeZone
           tzs={tzs as string[]}
-          addTZ={(tz) => setTZs([...tzs, tz])}
+          addTZ={(tz) => {
+            setTZs(Array.from(new Set([...tzs, tz])));
+          }}
         ></SelectTimeZone>
       </Box>
     </Box>
