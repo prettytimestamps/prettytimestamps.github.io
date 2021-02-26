@@ -5,13 +5,6 @@ import moment from "moment-timezone";
 import { useMemo, useState } from "react";
 import { fuzzyMatch } from "../services/fuzzyMatch";
 
-const allNames = moment.tz.names();
-const allAbbr = Array.from(
-  new Set(moment.tz.names().map((x) => moment.tz(x).zoneAbbr()))
-);
-
-const suggestions = allAbbr.concat(allNames);
-
 interface SelectTimeZoneParams {
   tzs: Array<String>;
   addTZ: (tz: string) => void;
@@ -22,9 +15,10 @@ export const SelectTimeZone: React.FunctionComponent<SelectTimeZoneParams> = ({
   addTZ,
 }) => {
   const [currentInput, setCurrentInput] = useState("");
-  const suggestionSet = useMemo(() => fuzzyMatch(currentInput, suggestions), [
-    currentInput,
-  ]);
+  const suggestionSet = useMemo(
+    () => fuzzyMatch(currentInput, moment.tz.names()),
+    [currentInput]
+  );
 
   return (
     <div style={{ width: "100%" }}>
