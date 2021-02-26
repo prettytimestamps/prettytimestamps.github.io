@@ -1,14 +1,16 @@
 import moment from "moment-timezone";
-import { DataTable, Text } from "grommet";
+import { Button, DataTable, Text } from "grommet";
 import { useMemo } from "react";
 import { Guess } from "../services/guessTimestampForm";
+import { Close } from "grommet-icons";
 
 interface TimeDisplayProps {
   guessedTime: Guess | null;
   tzs: string[];
+  setTZs: (newTzs: string[]) => void;
 }
 
-export const TimeDisplay = ({ guessedTime, tzs }: TimeDisplayProps) => {
+export const TimeDisplay = ({ guessedTime, tzs, setTZs }: TimeDisplayProps) => {
   const sortedTZs = useMemo(
     () =>
       tzs.sort(
@@ -23,6 +25,21 @@ export const TimeDisplay = ({ guessedTime, tzs }: TimeDisplayProps) => {
     <>
       <DataTable
         columns={[
+          {
+            property: "deleteButton",
+            header: "",
+            render: (d) => {
+              return (
+                <Close
+                  size="16px"
+                  color="red"
+                  onClick={(e) => {
+                    setTZs(sortedTZs.filter((item) => item !== d));
+                  }}
+                />
+              );
+            },
+          },
           {
             property: "name",
             header: <Text>Name</Text>,

@@ -74,7 +74,11 @@ function App() {
             tzs={tzs as string[]}
             setTZs={setTZs}
           />
-          <TimeDisplay guessedTime={guessedTime} tzs={tzs as string[]} />
+          <TimeDisplay
+            guessedTime={guessedTime}
+            tzs={tzs as string[]}
+            setTZs={setTZs}
+          />
         </Box>
       </Box>
     </Grommet>
