@@ -3,6 +3,7 @@ import { AddCircle } from "grommet-icons";
 
 import moment from "moment-timezone";
 import { useMemo, useState } from "react";
+import { fuzzyMatch } from "../services/fuzzyMatch";
 
 const allNames = moment.tz.names();
 const allAbbr = Array.from(
@@ -21,10 +22,9 @@ export const SelectTimeZone: React.FunctionComponent<SelectTimeZoneParams> = ({
   addTZ,
 }) => {
   const [currentInput, setCurrentInput] = useState("");
-  const suggestionSet = useMemo(
-    () => suggestions.filter((x) => x.indexOf(currentInput) >= 0),
-    [currentInput]
-  );
+  const suggestionSet = useMemo(() => fuzzyMatch(currentInput, suggestions), [
+    currentInput,
+  ]);
 
   return (
     <div style={{ width: "100%" }}>
