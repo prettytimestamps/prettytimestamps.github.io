@@ -1,5 +1,5 @@
 import moment from "moment-timezone";
-import { Button, DataTable, Text } from "grommet";
+import { DataTable, Text } from "grommet";
 import { useMemo } from "react";
 import { Guess } from "../services/guessTimestampForm";
 import { Close } from "grommet-icons";
@@ -18,7 +18,7 @@ export const TimeDisplay = ({ guessedTime, tzs, setTZs }: TimeDisplayProps) => {
           moment(guessedTime?.time).tz(a).utcOffset() -
           moment(guessedTime?.time).tz(b).utcOffset()
       ),
-    [tzs]
+    [tzs, guessedTime]
   );
 
   return (
