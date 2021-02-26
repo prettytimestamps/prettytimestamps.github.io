@@ -1,4 +1,6 @@
+import moment from "moment-timezone";
 import { DataTable, Text } from "grommet";
+import { useMemo } from "react";
 import { Guess } from "../services/guessTimestampForm";
 
 interface TimeDisplayProps {
@@ -7,6 +9,16 @@ interface TimeDisplayProps {
 }
 
 export const TimeDisplay = ({ guessedTime, tzs }: TimeDisplayProps) => {
+  const sortedTZs = useMemo(
+    () =>
+      tzs.sort(
+        (a, b) =>
+          moment(guessedTime?.time).tz(a).utcOffset() -
+          moment(guessedTime?.time).tz(b).utcOffset()
+      ),
+    [tzs]
+  );
+
   return (
     <>
       <DataTable
@@ -35,7 +47,7 @@ export const TimeDisplay = ({ guessedTime, tzs }: TimeDisplayProps) => {
             ),
           },
         ]}
-        data={tzs}
+        data={sortedTZs}
       />
     </>
   );
