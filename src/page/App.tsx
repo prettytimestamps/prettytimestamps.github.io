@@ -1,8 +1,7 @@
-import { Box, Grommet, TextInput, Text, Button } from "grommet";
-import { Clock, Github } from "grommet-icons";
+import { Box, Grommet, Button } from "grommet";
+import { Github } from "grommet-icons";
 import moment from "moment";
 import { useMemo } from "react";
-import { useCallback } from "react";
 import {
   useQueryParam,
   StringParam,
@@ -10,7 +9,7 @@ import {
   ArrayParam,
 } from "use-query-params";
 import { guessTimeStampForm } from "../services/guessTimestampForm";
-import { SelectTimeZone } from "./SelectTimeZone";
+import { Inputs } from "./Input";
 import { TimeDisplay } from "./TimeDisplay";
 
 const AppBar = (props: any) => (
@@ -52,13 +51,6 @@ function App() {
     [stamp]
   );
 
-  const onChange = useCallback(
-    (e) => {
-      setStamp(e.target.value);
-    },
-    [setStamp]
-  );
-
   return (
     <Grommet theme={theme}>
       <AppBar>
@@ -75,22 +67,13 @@ function App() {
       </AppBar>
       <Box pad="small" direction="row" flex overflow={{ horizontal: "hidden" }}>
         <Box flex align="center" justify="center">
-          <Box flex direction="row">
-            <Box width={{ max: "medium" }} pad="small">
-              <TextInput
-                icon={guessedTime ? <Text>{guessedTime.type}</Text> : <Clock />}
-                defaultValue={stamp ?? undefined}
-                onChange={onChange}
-                placeholder="timestamp..."
-              />
-            </Box>
-            <Box width={{ max: "medium" }} pad="small">
-              <SelectTimeZone
-                tzs={tzs as string[]}
-                addTZ={(tz) => setTZs([...tzs, tz])}
-              ></SelectTimeZone>
-            </Box>
-          </Box>
+          <Inputs
+            guessedTime={guessedTime}
+            stamp={stamp || null}
+            setStamp={setStamp}
+            tzs={tzs as string[]}
+            setTZs={setTZs}
+          />
           <TimeDisplay guessedTime={guessedTime} tzs={tzs as string[]} />
         </Box>
       </Box>

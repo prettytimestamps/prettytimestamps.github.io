@@ -4,4 +4,3 @@
 - make the bar not purple
 - dark mode?!?!
 - case insensitive in suggestions
-- why is offset showing PST not +8?
