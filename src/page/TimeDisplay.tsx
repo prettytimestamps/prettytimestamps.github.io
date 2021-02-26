@@ -50,7 +50,13 @@ export const TimeDisplay = ({ guessedTime, tzs, setTZs }: TimeDisplayProps) => {
             property: "offset",
             header: "Offset",
             render: (d) =>
-              guessedTime == null ? "???" : guessedTime.time.tz(d).format("Z"),
+              guessedTime == null ? (
+                "???"
+              ) : (
+                <span style={{ fontFamily: "'Roboto Mono', monospace" }}>
+                  {guessedTime.time.tz(d).format("Z")}
+                </span>
+              ),
           },
           {
             property: "time",
